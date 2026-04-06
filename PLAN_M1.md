@@ -6,8 +6,8 @@ M1 now starts from a runnable Next.js workspace that satisfies the preflight and
 
 ## Current Workspace Baseline (2026-04-06)
 
-- Canonical repo root remains `D:\navlands\code`
-- Active M1 development branch is `codex/bootstrap-clean`
+- Canonical repo root is `D:\navlands\code`
+- Active M1 development branch is `codex/bootstrap-clean`, checked out at the canonical repo root
 - Current clean branch contents now include:
   - Next.js App Router scaffold under `src/`
   - `package.json`, `pnpm-lock.yaml`, `tsconfig.json`, and `tsconfig.typecheck.json`

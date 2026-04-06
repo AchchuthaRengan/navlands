@@ -55,3 +55,9 @@
 - Context: Local `main` still carries older local-only history and is not the branch we want to advance for M1.
 - Decision: Continue M1 execution on `codex/bootstrap-clean` and only move changes to `main` after a deliberate later milestone update.
 - Impact: All current M1 validation and implementation results should be judged from the clean branch, not the old local `main` worktree.
+
+### D20. `D:\navlands\code` now tracks the active M1 dev branch
+
+- Context: `pnpm dev` was failing in the canonical repo path because it still pointed at the older local `main` worktree instead of the clean M1 branch.
+- Decision: Repoint `D:\navlands\code` to `codex/bootstrap-clean` so all standard repo commands run from the expected local path.
+- Impact: Future M1 work should use `D:\navlands\code` directly without relying on an auxiliary worktree path.

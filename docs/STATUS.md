@@ -5,7 +5,7 @@
 ### Current State
 
 - Repo root verified at `D:\navlands\code`
-- Active development branch is `codex/bootstrap-clean`
+- Active development branch is `codex/bootstrap-clean`, checked out at the canonical repo root
 - Git metadata exists and bootstrap work now lives on a clean dev branch
 - The Next.js App Router scaffold is now runnable with `pnpm` on the dev branch
 - Canonical planning docs have been restored under `docs/STATUS.md` and `docs/DECISIONS.md`
@@ -34,16 +34,14 @@
 - `ADMIN_EMAILS` is still unavailable, so admin route validation remains fixture-based
 - Runtime AI provider keys are still unavailable, so live provider validation remains blocked and mock mode stays mandatory
 - Resend domain is still unavailable, so email deliverability is not part of this checkpoint
-- `D:\navlands\code` still points at the old local `main` worktree until the clean dev branch is moved back there
 
 ### Next Actions
 
-1. Move the clean dev branch back onto `D:\navlands\code` so `pnpm` commands run from the canonical repo path
-2. Start Phase 3 Supabase schema, migrations, triggers, RPCs, and RLS
-3. Replace the placeholder DB type with generated types from the hosted dev schema
-4. Add shared contracts and validation for AI and node metadata
-5. Add the mock AI abstraction and token-budget/logging tables using canonical names
-6. Prepare the first Claude review once the bootstrap checkpoint is committed and stable
+1. Start Phase 3 Supabase schema, migrations, triggers, RPCs, and RLS
+2. Replace the placeholder DB type with generated types from the hosted dev schema
+3. Add shared contracts and validation for AI and node metadata
+4. Add the mock AI abstraction and token-budget/logging tables using canonical names
+5. Prepare the first Claude review once the bootstrap checkpoint is committed and stable
 
 ### Validation Status
 
