@@ -2,13 +2,13 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
-import { getPublicEnv } from "@/lib/env/public";
+import { getRequiredPublicSupabaseEnv } from "@/lib/env/public";
 import { getServerEnv } from "@/lib/env/server";
 import type { Database } from "@/types/db/supabase";
 
 export function createServerSupabaseClient() {
   const cookieStore = cookies();
-  const env = getPublicEnv();
+  const env = getRequiredPublicSupabaseEnv();
 
   return createServerClient<Database>(
     env.NEXT_PUBLIC_SUPABASE_URL,
@@ -38,7 +38,7 @@ export function createServerSupabaseClient() {
 }
 
 export function createAdminSupabaseClient() {
-  const env = getPublicEnv();
+  const env = getRequiredPublicSupabaseEnv();
   const serverEnv = getServerEnv();
 
   if (!serverEnv.SUPABASE_SERVICE_ROLE_KEY) {

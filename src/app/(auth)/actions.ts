@@ -2,16 +2,33 @@
 
 import { redirect } from "next/navigation";
 
-import { getPublicEnv } from "@/lib/env/public";
+import { ensureProfileForUser } from "@/lib/auth/profile";
+import {
+  getPublicSupabaseSetupMessage,
+  getRequiredPublicSupabaseEnv,
+  hasPublicSupabaseEnvConfigured,
+} from "@/lib/env/public";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { loginInputSchema, signupInputSchema } from "@/types/contracts";
 
 function toMessageUrl(path: string, key: "error" | "message", value: string) {
   return `${path}?${key}=${encodeURIComponent(value)}`;
 }
 
+function getAuthSetupMessage() {
+  return (
+    getPublicSupabaseSetupMessage() ??
+    "Supabase auth is not configured for this environment."
+  );
+}
+
 async function signInWithOAuth(provider: "google" | "github") {
+  if (!hasPublicSupabaseEnvConfigured()) {
+    redirect(toMessageUrl("/login", "error", getAuthSetupMessage()));
+  }
+
   const supabase = createServerSupabaseClient();
-  const env = getPublicEnv();
+  const env = getRequiredPublicSupabaseEnv();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
@@ -34,40 +51,64 @@ async function signInWithOAuth(provider: "google" | "github") {
 }
 
 export async function loginAction(formData: FormData) {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
+  if (!hasPublicSupabaseEnvConfigured()) {
+    redirect(toMessageUrl("/login", "error", getAuthSetupMessage()));
+  }
 
-  if (!email || !password) {
+  const parsed = loginInputSchema.safeParse({
+    email: String(formData.get("email") ?? "").trim(),
+    password: String(formData.get("password") ?? ""),
+  });
+
+  if (!parsed.success) {
     redirect(
-      toMessageUrl("/login", "error", "Email and password are required."),
+      toMessageUrl(
+        "/login",
+        "error",
+        parsed.error.issues[0]?.message ?? "Email and password are required.",
+      ),
     );
   }
 
   const supabase = createServerSupabaseClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
 
   if (error) {
     redirect(toMessageUrl("/login", "error", error.message));
+  }
+
+  if (data.user) {
+    await ensureProfileForUser(data.user);
   }
 
   redirect("/app");
 }
 
 export async function signupAction(formData: FormData) {
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
+  if (!hasPublicSupabaseEnvConfigured()) {
+    redirect(toMessageUrl("/signup", "error", getAuthSetupMessage()));
+  }
 
-  if (!email || !password) {
+  const parsed = signupInputSchema.safeParse({
+    email: String(formData.get("email") ?? "").trim(),
+    password: String(formData.get("password") ?? ""),
+  });
+
+  if (!parsed.success) {
     redirect(
-      toMessageUrl("/signup", "error", "Email and password are required."),
+      toMessageUrl(
+        "/signup",
+        "error",
+        parsed.error.issues[0]?.message ?? "Email and password are required.",
+      ),
     );
   }
 
   const supabase = createServerSupabaseClient();
-  const env = getPublicEnv();
+  const env = getRequiredPublicSupabaseEnv();
   const { error } = await supabase.auth.signUp({
-    email,
-    password,
+    email: parsed.data.email,
+    password: parsed.data.password,
     options: {
       emailRedirectTo: new URL(
         "/auth/callback",
@@ -98,6 +139,10 @@ export async function signInWithGitHubAction() {
 }
 
 export async function signOutAction() {
+  if (!hasPublicSupabaseEnvConfigured()) {
+    redirect("/");
+  }
+
   const supabase = createServerSupabaseClient();
   await supabase.auth.signOut();
   redirect("/");

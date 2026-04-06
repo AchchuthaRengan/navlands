@@ -24,8 +24,15 @@ export async function middleware(request: NextRequest) {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const { pathname } = request.nextUrl;
 
   if (!supabaseUrl || !supabaseAnonKey) {
+    if (shouldProtectAppPath(pathname) || shouldProtectAdminPath(pathname)) {
+      const redirectUrl = new URL("/", request.url);
+      redirectUrl.searchParams.set("setup", "supabase");
+      return NextResponse.redirect(redirectUrl);
+    }
+
     return response;
   }
 
@@ -58,7 +65,6 @@ export async function middleware(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const { pathname } = request.nextUrl;
 
   if (shouldProtectAdminPath(pathname)) {
     if (!user || !isAdminEmail(user.email)) {

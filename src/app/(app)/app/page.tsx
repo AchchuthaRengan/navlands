@@ -1,14 +1,12 @@
 import Link from "next/link";
 
 import { signOutAction } from "@/app/(auth)/actions";
+import { requireAuthenticatedUser } from "@/lib/auth/session";
+import { getPublicSupabaseSetupMessage } from "@/lib/env/public";
 import { getServerEnv } from "@/lib/env/server";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export default async function AppHomePage() {
-  const supabase = createServerSupabaseClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await requireAuthenticatedUser();
   const serverEnv = getServerEnv();
 
   return (
@@ -22,6 +20,10 @@ export default async function AppHomePage() {
           <p className="text-sm leading-6 text-charcoal">
             This route is protected by middleware and Supabase session refresh.
             Deeper product features start in later M1 phases.
+          </p>
+          <p className="text-sm leading-6 text-charcoal">
+            {getPublicSupabaseSetupMessage() ??
+              "Hosted Supabase is configured for the current environment."}
           </p>
         </div>
 

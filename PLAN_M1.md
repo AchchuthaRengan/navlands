@@ -115,6 +115,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
   - `resume_parses`
 - Generate DB types from the hosted dev schema and check them into the repo
 - Do not add `prompt_cache`, `journey_cache`, or legacy `ai_token_usage` in M1
+- Status: completed, validated against the hosted dev database, and tightened by the recorded phase-3 Claude review fixes
 
 ### Phase 4: Contracts and Validation
 
@@ -123,6 +124,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
 - Create the Amendment A3 path-generation output types
 - Add shared validation schemas for AI outputs and action inputs
 - Ensure DB-derived types and product contracts do not duplicate or drift
+- Status: completed and validated
 
 ### Phase 5: Auth and Server Boundaries
 
@@ -132,7 +134,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
 - Add admin allowlist middleware for `/admin`
 - Add DOB-aware profile field plumbing for later age-gate enforcement
 - Keep phone OTP deferred to M2
-- Status: bootstrap-level foundation completed and validated for email/password + Google + GitHub only
+- Status: completed, reviewed by Claude, and accepted for M1; Google/GitHub remain code-wired and fixture-validated, while phone OTP stays deferred to M2
 
 ### Phase 6: AI Abstraction and Mock Mode
 
@@ -142,6 +144,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
 - Log usage to `ai_call_log`
 - Read and update `ai_daily_budget`
 - Add contract-check hooks that use `evals/`
+- Status: completed, reviewed by Claude, and validated in mock mode
 
 ### Phase 7: Rate Limiting and Verification
 
@@ -149,6 +152,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
 - Add unit, integration, RLS, and Playwright smoke scaffolds
 - Make `pnpm verify` the default done-state command
 - Document manual smoke checks for auth, RLS, mock AI, and admin gating
+- Status: completed and validated; Claude checkpoint outputs are recorded for Phase 3, Phase 5, Phase 6, and milestone close-out
 
 ## Required Claude Review Checkpoints
 
@@ -192,6 +196,25 @@ If Claude review is required and unavailable, stop and report it.
   - Hosted-dev-first Supabase helpers and folders added
   - Auth foundation added for email/password + Google + GitHub
   - Validation passed for `pnpm verify`
+- Checkpoint 3: Supabase foundation
+  - Hosted-dev migration `20260406120000_m1_foundation.sql` added and applied to the hosted dev database
+  - RLS enabled for all M1 tables
+  - `record_ai_call` RPC added for `ai_call_log` and `ai_daily_budget`
+  - DB types regenerated from the hosted dev schema using repo-local introspection
+  - Phase-3 Claude review recorded under `docs/reviews/claude-phase-3-review-2026-04-06.md`
+  - Corrective migration `20260406143000_m1_phase3_review_fixes.sql` applied to revoke direct client execution of `record_ai_call` and normalize `resume_parses.parse_status`
+- Checkpoint 4: Contracts and auth
+  - Shared schemas added for suggestion cards, node metadata, path generation, resume parsing, what-if simulation, recommendation explanation, moderation, auth inputs, and profile upserts
+  - Auth actions now validate input and degrade gracefully when Supabase public env is missing
+  - Profile sync now runs server-side through the service-role client after successful auth
+  - Phase-5 Claude auth review recorded under `docs/reviews/claude-phase-5-review-2026-04-06.md` with no M1-blocking findings
+- Checkpoint 5: AI gateway and verification
+  - Shared AI gateway added with mandatory mock mode, fallback structure, usage logging, and budget tracking
+  - Anonymous AI rate limiting added with Upstash integration plus in-memory fallback for deterministic tests
+  - Real Playwright smoke coverage now verifies the marketing page, setup-mode auth routes, and protected-route redirects without Supabase public env
+  - Unit tests, Playwright smoke, live RLS validation, eval fixtures, and `pnpm verify` all pass
+  - Phase-6 Claude AI review recorded under `docs/reviews/claude-phase-6-review-2026-04-06.md`
+  - Final Claude close-out review recorded under `docs/reviews/claude-final-review-2026-04-06.md`
 
 ## Blocker Policy
 
@@ -201,7 +224,16 @@ If Claude review is required and unavailable, stop and report it.
 
 ## AI Validation Results
 
-_To be filled during execution._
+- `generatePath()` returns schema-valid output in mock mode and records usage
+- `parseResume()` returns schema-valid output in mock mode
+- `simulateWhatIf()` returns schema-valid output in mock mode
+- `explainRecommendation()` returns schema-valid output in mock mode
+- `moderateContent()` returns schema-valid output in mock mode
+- Anonymous rate limiting trips at 2 requests in unit tests
+- `ai_call_log` and `ai_daily_budget` are exercised through the repository and RPC path
+- Direct anon RPC access to `record_ai_call` is blocked in live RLS verification
+- Invalid `resume_parses.parse_status` values are rejected in live RLS verification
+- Claude review checkpoints are recorded for Phase 3, Phase 5, Phase 6, and final close-out
 
 ## User Validation Suggestions
 

@@ -1,6 +1,22 @@
 import Link from "next/link";
 
-export default function MarketingPage() {
+import {
+  getPublicSupabaseSetupMessage,
+  hasPublicSupabaseEnvConfigured,
+} from "@/lib/env/public";
+
+type MarketingPageProps = {
+  searchParams?: {
+    error?: string;
+    setup?: string;
+  };
+};
+
+export default function MarketingPage({ searchParams }: MarketingPageProps) {
+  const authReady = hasPublicSupabaseEnvConfigured();
+  const setupMessage = getPublicSupabaseSetupMessage();
+  const shouldShowSetup = !authReady || searchParams?.setup === "supabase";
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center gap-12 px-6 py-16">
       <section className="glass-panel grid gap-10 p-8 md:grid-cols-[1.4fr_0.9fr] md:p-12">
@@ -8,6 +24,16 @@ export default function MarketingPage() {
           <p className="font-accent text-3xl text-terracotta">
             Visual-first career exploration
           </p>
+          {searchParams?.error ? (
+            <p className="rounded-glass border border-ember/20 bg-cream/80 px-4 py-3 text-sm text-ember">
+              {searchParams.error}
+            </p>
+          ) : null}
+          {shouldShowSetup && setupMessage ? (
+            <p className="rounded-glass border border-ember/20 bg-cream/80 px-4 py-3 text-sm text-ember">
+              {setupMessage}
+            </p>
+          ) : null}
           <div className="space-y-4">
             <h1 className="font-heading text-5xl leading-none text-ink md:text-7xl">
               Wayframe foundation is live.
@@ -23,13 +49,13 @@ export default function MarketingPage() {
               href="/signup"
               className="rounded-full bg-terracotta px-5 py-3 font-medium text-cream transition hover:opacity-90"
             >
-              Create account
+              {authReady ? "Create account" : "Review auth setup"}
             </Link>
             <Link
               href="/login"
               className="rounded-full border border-sand px-5 py-3 font-medium text-ink transition hover:border-terracotta hover:text-terracotta"
             >
-              Sign in
+              {authReady ? "Sign in" : "Open auth setup"}
             </Link>
           </div>
         </div>

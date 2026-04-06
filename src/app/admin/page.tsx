@@ -1,4 +1,8 @@
-export default function AdminPage() {
+import { requireAdminUser } from "@/lib/auth/session";
+
+export default async function AdminPage() {
+  const user = await requireAdminUser();
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col justify-center px-6 py-16">
       <section className="glass-panel space-y-4 p-8">
@@ -7,9 +11,12 @@ export default function AdminPage() {
           Allowlist-gated admin placeholder
         </h1>
         <p className="text-sm leading-6 text-charcoal">
-          Middleware protects this route using `ADMIN_EMAILS`. If the allowlist
-          is empty, this route remains effectively blocked to non-fixture users
-          until real admin emails are supplied.
+          Middleware and server-side auth helpers both gate this route. Admin
+          actions stay auditable and service-role-only in M1.
+        </p>
+        <p className="text-sm leading-6 text-charcoal">
+          Current admin session:{" "}
+          <span className="font-medium">{user.email}</span>
         </p>
       </section>
     </main>

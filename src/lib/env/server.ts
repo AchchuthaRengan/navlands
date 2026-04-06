@@ -11,6 +11,8 @@ const serverEnvSchema = z.object({
   ANTHROPIC_API_KEY: z.string().min(1).optional(),
   ANTHROPIC_MODEL: z.string().min(1).default("claude-3-5-haiku-latest"),
   ADMIN_EMAILS: z.string().default(""),
+  UPSTASH_REDIS_REST_URL: z.string().url().optional(),
+  UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
 });
 
 export function getServerEnv() {
@@ -24,6 +26,8 @@ export function getServerEnv() {
     ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || undefined,
     ANTHROPIC_MODEL: process.env.ANTHROPIC_MODEL || "claude-3-5-haiku-latest",
     ADMIN_EMAILS: process.env.ADMIN_EMAILS || "",
+    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL || undefined,
+    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN || undefined,
   });
 }
 

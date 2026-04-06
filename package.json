@@ -9,18 +9,23 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
     "test": "vitest run tests/unit",
-    "test:e2e": "playwright test --pass-with-no-tests",
+    "test:e2e": "playwright test",
     "test:rls": "vitest run tests/rls --passWithNoTests",
     "format:check": "prettier --check .",
+    "db:push:m1": "node scripts/hosted-dev-supabase.mjs db-push",
+    "db:types:m1": "node scripts/hosted-dev-supabase.mjs gen-types",
     "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e && pnpm test:rls && pnpm build"
   },
   "dependencies": {
+    "@upstash/ratelimit": "2.0.8",
+    "@upstash/redis": "1.37.0",
     "@supabase/ssr": "0.10.0",
     "@supabase/supabase-js": "2.101.1",
     "next": "14.2.35",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "zod": "4.3.6"
+    "zod": "4.3.6",
+    "zustand": "5.0.12"
   },
   "devDependencies": {
     "@playwright/test": "1.59.1",
@@ -31,6 +36,7 @@
     "autoprefixer": "10.4.27",
     "eslint": "8.57.1",
     "eslint-config-next": "14.2.35",
+    "pg": "8.13.1",
     "postcss": "8.5.8",
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "0.7.2",
