@@ -37,3 +37,21 @@
 - Context: This checkpoint is limited to preflight/bootstrap only.
 - Decision: Add Supabase client helpers, environment wiring, and repo-managed `supabase/` directories now; defer schema, migrations, RLS, and generated types to the next checkpoint.
 - Impact: The architecture boundary is in place without widening scope into Phase 3 early.
+
+### D17. Phase 1 is not complete until the root manifest and config layer exists
+
+- Context: The earlier bootstrap checkpoint restored routes, helpers, and docs, but the clean branch still lacked `package.json`, `tsconfig.json`, Tailwind/PostCSS config, and the root app layout. That left `pnpm dev` unusable.
+- Decision: Treat bootstrap as incomplete until the branch contains a runnable `pnpm`/Next.js manifest and passes the full `pnpm verify` checkpoint.
+- Impact: Future checkpoint claims must be validated against the actual file tree, not inferred from partial scaffolding.
+
+### D18. Bootstrap type checking uses `tsconfig.typecheck.json`
+
+- Context: The bootstrap branch needs a stable standalone `pnpm typecheck` command even when Next.js later injects `.next/types` behavior into the base config.
+- Decision: Keep `tsconfig.json` as the Next.js app config and run `pnpm typecheck` against `tsconfig.typecheck.json`.
+- Impact: `pnpm typecheck` stays deterministic during bootstrap while `pnpm build` continues to validate the full Next.js app.
+
+### D19. `codex/bootstrap-clean` remains the authoritative M1 execution branch until main is intentionally updated
+
+- Context: Local `main` still carries older local-only history and is not the branch we want to advance for M1.
+- Decision: Continue M1 execution on `codex/bootstrap-clean` and only move changes to `main` after a deliberate later milestone update.
+- Impact: All current M1 validation and implementation results should be judged from the clean branch, not the old local `main` worktree.

@@ -2,13 +2,18 @@
 
 ## Summary
 
-M1 now starts from a bootstrapped Next.js workspace at `D:\navlands\code` that still needs to be normalized against the governing docs. The goal remains to finish the repository, project scaffold, schema, auth, AI abstraction, rate limiting, and verification foundation without starting M2 or feature implementation work.
+M1 now starts from a runnable Next.js workspace that satisfies the preflight and bootstrap checkpoint on the `codex/bootstrap-clean` development branch. The goal remains to finish the repository, project scaffold, schema, auth, AI abstraction, rate limiting, and verification foundation without starting M2 or feature implementation work.
 
 ## Current Workspace Baseline (2026-04-06)
 
-- Intended workspace root verified: `D:\navlands\code`
-- Current contents: Next.js App Router scaffold under `src/`, package metadata, root docs, and local git metadata
-- Remaining gaps at the start of this execution pass: canonical `docs/STATUS.md` and `docs/DECISIONS.md` were missing, `.env.example` was missing, the default create-next-app shell was still in place, and stable M1 scripts were incomplete
+- Canonical repo root remains `D:\navlands\code`
+- Active M1 development branch is `codex/bootstrap-clean`
+- Current clean branch contents now include:
+  - Next.js App Router scaffold under `src/`
+  - `package.json`, `pnpm-lock.yaml`, `tsconfig.json`, and `tsconfig.typecheck.json`
+  - Next/Tailwind/PostCSS/ESLint/Prettier config
+  - placeholder-safe `.env.example`
+  - bootstrap auth and hosted-dev-first Supabase helper foundations
 - Git metadata had been missing during the earlier planning pass and is now present locally
 - `.env.example` now exists as a placeholder-only file; any previously committed real values must still be rotated outside the repo before reuse
 
@@ -79,7 +84,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
 - Add stable scripts: `dev`, `build`, `lint`, `typecheck`, `test`, `test:e2e`, `test:rls`, `format:check`, `verify`
 - Create baseline folders: `app/`, `components/`, `lib/ai/`, `lib/auth/`, `lib/db/`, `lib/server/`, `lib/validation/`, `store/`, `types/`, `supabase/`, `tests/`, `scripts/`
 - Add placeholder route groups for marketing, auth, app, and admin
-- Status: completed in this pass using the existing `src/` App Router layout
+- Status: completed and validated on `codex/bootstrap-clean`
 
 ### Phase 2: Design-System Foundation
 
@@ -127,7 +132,7 @@ By the end of M1, a fresh engineer can clone the initialized repo, configure pla
 - Add admin allowlist middleware for `/admin`
 - Add DOB-aware profile field plumbing for later age-gate enforcement
 - Keep phone OTP deferred to M2
-- Status: bootstrap-level foundation completed in this pass for email/password + Google + GitHub only
+- Status: bootstrap-level foundation completed and validated for email/password + Google + GitHub only
 
 ### Phase 6: AI Abstraction and Mock Mode
 
@@ -180,11 +185,13 @@ If Claude review is required and unavailable, stop and report it.
   - Canonical planning docs restored under `docs/STATUS.md` and `docs/DECISIONS.md`
   - `.env.example` restored as a placeholder-only file
 - Checkpoint 2: Project bootstrap
+  - Root Next.js and `pnpm` manifest/config files restored on the clean dev branch
   - Stable scripts added to `package.json`
+  - Root layout, global CSS tokens, and Tailwind theme now support the Wayframe bootstrap routes
   - Default scaffold routes replaced with Wayframe bootstrap routes
   - Hosted-dev-first Supabase helpers and folders added
   - Auth foundation added for email/password + Google + GitHub
-  - Validation passed for lint, typecheck, tests, and build
+  - Validation passed for `pnpm verify`
 
 ## Blocker Policy
 
