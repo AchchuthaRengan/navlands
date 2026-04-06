@@ -127,3 +127,33 @@
 - Context: The phase-6 Claude review called out two minor issues: budget-exhaustion events are not logged before the gateway throws, and `InMemoryAiUsageRepository` ignores the injected clock when computing the budget date.
 - Decision: Keep both notes documented as non-blocking M1 follow-ups instead of widening the milestone with extra hardening work.
 - Impact: The shared AI abstraction remains contract-valid and safely mock-first for M1, while future cleanup work has a concrete paper trail.
+
+### D32. M2 starts with a repo-grounded plan because no higher-precedence M2 docs are present in this worktree
+
+- Context: At M2 kickoff, the repo contains `PLAN_M1.md` and the completed M1 codebase, but no checked-in `PLAN_M2.md`, `wayframe-*.md`, `ARCHITECTURE.md`, or `LEARNINGS.md` files to anchor the next milestone directly.
+- Decision: Create `PLAN_M2.md` from the current repo state, the M1 out-of-scope list, and the repo non-negotiables, while explicitly recording that assumption in the plan itself.
+- Impact: The next milestone can proceed from an explicit execution contract without pretending the missing governing docs were available.
+
+### D33. M2 prioritizes the exploration engine over parent, social, and admin expansion
+
+- Context: The repo non-negotiables make the exploration engine the primary product, and the current codebase still only has a placeholder `/app` shell.
+- Decision: The first M2 slice focuses on exploration entry, path generation, path viewing, suggestion cards, and what-if interactions instead of parent dashboard UI, feed/social features, or deeper admin tooling.
+- Impact: The next implementation phase advances the product core rather than widening into lower-priority surfaces.
+
+### D34. Phone OTP is not part of the first M2 execution slice
+
+- Context: Phone OTP was deliberately excluded from M1, but the current repo still lacks any governing M2 milestone doc that would justify making it the first post-M1 priority.
+- Decision: Keep the active auth surface at email/password + Google + GitHub during M2 kickoff and leave phone OTP out of the initial M2 execution slice unless a later M2 sub-plan explicitly pulls it in.
+- Impact: M2 starts on exploration experience work without reopening auth scope at the same time.
+
+### D35. M2 will consume the existing M1 contracts, schema, and mock-first AI gateway rather than introducing parallel abstractions
+
+- Context: M1 already established canonical contracts, Supabase tables, auth boundaries, and a shared AI gateway with mock-mode validation.
+- Decision: `PLAN_M2.md` requires the next milestone to build on those existing boundaries instead of inventing new state systems, new provider paths, or new schema forks.
+- Impact: The next milestone can move faster while preserving the architectural guarantees established in M1.
+
+### D36. M2 Phase 1 replaces the `/app` placeholder with a visual shell before adding generation actions
+
+- Context: The signed-in route was still an M1 placeholder, but the repo already had the contracts and visual system needed to establish the exploration shell first.
+- Decision: Replace the placeholder with a signed-in exploration shell, contract-aligned suggestion previews, and path empty states before implementing onboarding and path persistence.
+- Impact: M2 now has a stable visual surface to attach Phase 2 onboarding and Phase 3 generation/actions work without mixing layout churn with server-action logic.

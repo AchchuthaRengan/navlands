@@ -16,6 +16,8 @@
 - Phone OTP remains deferred to M2
 - Mock AI mode remains the required M1 default
 - M1 foundation is complete at the code, test, and required-review level
+- `PLAN_M2.md` now exists as the next execution contract for the core exploration experience
+- `/app` now renders the first M2 exploration shell instead of the old M1 placeholder
 
 ### Completed This Checkpoint
 
@@ -31,6 +33,8 @@
 - Recorded the final Claude close-out review outcome and resolved its documentation blockers
 - Added eval fixtures plus unit, Playwright, and live RLS verification
 - Passed `pnpm verify`
+- Created `PLAN_M2.md` to start the next milestone from an explicit repo-grounded contract
+- Completed M2 Phase 1 by replacing the signed-in placeholder route with the first exploration shell
 
 ### Open Constraints
 
@@ -38,11 +42,13 @@
 - Mock AI mode is complete, but live provider validation remains intentionally out of scope for M1 done-state
 - Resend domain is still unavailable, so email deliverability is not part of this checkpoint
 - Claude usage limits prevented an immediate clean rerun of the final review after the review-file cleanup, but the earlier close-out review and its resolved blockers are now recorded
+- Higher-precedence M2 product and milestone docs are still missing from this worktree, so `PLAN_M2.md` is derived from current repo state and the M1 out-of-scope list
 
 ### Next Actions
 
-1. Run final manual OAuth/admin smoke checks if live allowlist credentials are available
-2. Carry the documented minor AI observability/test-fidelity notes into a later cleanup only if they become product-relevant
+1. Start Phase 2 of `PLAN_M2.md` with minimal exploration onboarding on top of the new shell
+2. Implement Phase 3 path-generation actions and reads against the existing M1 schema and gateway
+3. Run final manual OAuth/admin smoke checks later if live allowlist credentials become available
 
 ### Validation Status
 
