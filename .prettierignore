@@ -1,0 +1,16 @@
+.git
+.next
+node_modules
+pnpm-lock.yaml
+AGENTS.md
+ARCHITECTURE.md
+CODEX_NEXT_STEPS.md
+IMPLEMENTATION_INITIALIZATION_CHECKLIST.md
+LEARNINGS.md
+README_INIT.md
+wayframe-ai-boundaries.md
+wayframe-data-model.md
+wayframe-master-spec.md
+wayframe-milestones.md
+wayframe-parent-dashboard-memo.md
+wayframe-spec-amendments.md
