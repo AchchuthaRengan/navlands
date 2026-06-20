@@ -8,6 +8,10 @@
 > docs* than a pile of half-empty ones. Don't create a file until it earns its place.
 > Many items below are fine as a **section inside another doc** instead of a new file.
 
+**Two companions:** [`PLAYBOOK.md`](./PLAYBOOK.md) — how to create each doc + the exact
+prompts for Claude · [`examples/habitloop/`](./examples/habitloop/) — every core doc fully
+filled in for a sample app, so you can see what "good" looks like.
+
 ---
 
 ## The picture
@@ -26,6 +30,7 @@ navlands/
     ├── INDEX.md              ✅ This file — the map
     ├── mother.md             ✅ MASTER source of truth (the blueprint)
     ├── INTERVIEW.md          ✅ Q&A guide used to fill mother.md
+    ├── PLAYBOOK.md           ✅ Per-doc structure + exact prompts for Claude
     ├── goal.md               ⬜ Why we build it + what success means
     ├── design.md             ⬜ Screens, flows, look & feel, data model
     ├── task.md               ⬜ The build, in small ordered jobs
@@ -43,7 +48,9 @@ navlands/
     ├── personas.md           ➕ User personas (if not inside goal.md)
     ├── competitors.md        ➕ Market / competitive analysis
     ├── open-questions.md     ➕ Running list of unknowns & assumptions
-    └── prompts.md            ➕ Reusable Codex prompts (prompt library)
+    ├── prompts.md            ➕ Reusable Codex prompts (prompt library)
+    └── examples/
+        └── habitloop/        ✅ Full worked example of every core doc
 ```
 
 ---
