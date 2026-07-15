@@ -1,5 +1,29 @@
 # STATUS
 
+## 2026-07-15
+
+### Current State
+
+- The docs system and the M1/M2 codebase now live together on `claude/busy-hamilton-l2u41r` (PR #1), created by merging `codex/bootstrap-clean`
+- `docs/mother.md` is the governing product spec, pre-filled from the codebase with founder-interview gaps marked as open questions
+- Root `AGENTS.md` (imported by `CLAUDE.md`) records the repo house rules for coding agents
+- The docs map lives in `docs/INDEX.md`, doc-creation prompts in `docs/PLAYBOOK.md`, and the harness extension plan in `docs/HARNESS.md`
+- M2 execution state is unchanged: Phase 1 complete, Phase 2 (minimal exploration onboarding) is next
+
+### Completed This Checkpoint
+
+- Merged `codex/bootstrap-clean` into `claude/busy-hamilton-l2u41r`
+- Rewrote `docs/mother.md` from a blank template into a code-grounded product spec with confirmed facts and open questions marked
+- Added root `AGENTS.md` and `CLAUDE.md`
+- Updated `docs/INDEX.md` to map existing project docs (`PLAN_Mx.md`, `docs/STATUS.md`, `docs/DECISIONS.md`, `docs/reviews/`, `claude_insights.md`) into the documentation system
+- Recorded D37 in `docs/DECISIONS.md`
+
+### Next Actions
+
+1. Founder interview to close the open questions in `docs/mother.md` (pitch, users, trust-label semantics, public-v1 scope, brand, metrics)
+2. If the original local `wayframe-*.md` governing docs still exist on the founder's machine, commit or share them and reconcile with `docs/mother.md`, recording conflicts per D32/D37
+3. Continue `PLAN_M2.md` Phase 2 (minimal exploration onboarding)
+
 ## 2026-04-06
 
 ### Current State

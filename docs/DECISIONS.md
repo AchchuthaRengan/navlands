@@ -157,3 +157,11 @@
 - Context: The signed-in route was still an M1 placeholder, but the repo already had the contracts and visual system needed to establish the exploration shell first.
 - Decision: Replace the placeholder with a signed-in exploration shell, contract-aligned suggestion previews, and path empty states before implementing onboarding and path persistence.
 - Impact: M2 now has a stable visual surface to attach Phase 2 onboarding and Phase 3 generation/actions work without mixing layout churn with server-action logic.
+
+## 2026-07-15
+
+### D37. Governing product docs now live in-repo with `docs/mother.md` as the product source of truth
+
+- Context: D32 recorded that higher-precedence governing docs (`wayframe-*.md`, `ARCHITECTURE.md`) were missing from this worktree, and a documentation system was meanwhile developed on `claude/busy-hamilton-l2u41r` against an empty tree.
+- Decision: Merge the M1/M2 codebase and the documentation system onto one branch. `docs/mother.md` (pre-filled from the current codebase, with open founder questions marked) becomes the governing product spec, the root `AGENTS.md` (imported by `CLAUDE.md`) carries the repo house rules for coding agents, and `PLAN_Mx.md` remains the milestone execution layer beneath it.
+- Impact: The missing-governing-docs planning assumption from D32 is now resolved from repo state. If the original local `wayframe-*.md` docs are restored later and conflict with `docs/mother.md`, the conflict must be recorded here before implementation continues.

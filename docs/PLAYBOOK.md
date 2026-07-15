@@ -6,11 +6,12 @@
 >
 > **The flow:** fill `mother.md` (via the interview) → then for each child doc, paste its
 > prompt below. Each prompt tells Claude to use `mother.md` as the source of truth, so the
-> docs stay consistent. Keep every doc lean: *short + accurate beats long + vague*.
+> docs stay consistent. Keep every doc lean: _short + accurate beats long + vague_.
 
 ---
 
 ## 0. `mother.md` — the master spec
+
 - **Purpose:** the single source of truth; everything else is generated from it.
 - **Structure:** §1 Vision · §2 Users · §3 Features/Scope · §4 Screens · §5 Look & feel · §6 Data & logic · §7 Accounts · §8 Tech · §9 Integrations · §10 Success/risks (+ appendices).
 - **Questions to answer:** the whole interview — see [`INTERVIEW.md`](./INTERVIEW.md).
@@ -23,6 +24,7 @@
 ---
 
 ## 1. `goal.md` — the why (north star)
+
 - **Structure:** Problem · What it is · Who it's for · Core scenario · Definition of done · Success metrics · Non-goals.
 - **Questions to answer:**
   1. What problem does this solve, in 2 sentences?
@@ -41,6 +43,7 @@
 ---
 
 ## 2. `design.md` — look & structure
+
 - **Structure:** Screen inventory (table) · Navigation & flows · Look & feel (color/type/spacing/components/states/a11y) · Data model · Architecture sketch.
 - **Questions to answer:**
   1. List every screen and, for each: purpose / what the user can do / what it shows.
@@ -61,6 +64,7 @@
 ---
 
 ## 3. `task.md` — the build plan
+
 - **Structure:** Milestones, each containing tasks. Every task = ID & title · Goal · Context · Done-when · Depends-on.
 - **Questions to answer:**
   1. What's the riskiest/most foundational thing to build first?
@@ -76,7 +80,8 @@
 
 ---
 
-## 4. `AGENTS.md` — the agent's house rules  *(lives at REPO ROOT, uppercase)*
+## 4. `AGENTS.md` — the agent's house rules _(lives at REPO ROOT, uppercase)_
+
 - **Structure:** Project overview · Repo layout · Commands (install/run/typecheck/lint/test) · Conventions · Git & PRs · Security & privacy · Do-NOT list · Self-check before finishing.
 - **Questions to answer:**
   1. What's the stack and how do you run/test/lint it?
@@ -96,8 +101,9 @@
 ---
 
 ## 5. `glossary.md` — shared vocabulary
+
 - **Structure:** alphabetical (or grouped) term → one-line definition.
-- **Questions to answer:** What domain words appear in your app, and what does each mean *exactly*? Any words people commonly confuse?
+- **Questions to answer:** What domain words appear in your app, and what does each mean _exactly_? Any words people commonly confuse?
 - **Prompt for Claude:**
   > "From `docs/mother.md` and `docs/design.md`, extract every domain term and define each
   > in one precise line in `docs/glossary.md`. Note any that are easily confused."
@@ -106,6 +112,7 @@
 ---
 
 ## 6. `decisions.md` — decision log (ADRs)
+
 - **Structure:** newest-first entries: ID · date · title · Decision · Why · Alternatives/Trade-off.
 - **Questions to answer:** For each meaningful choice — what did you decide, why, and what did you reject?
 - **Prompt for Claude:**
@@ -117,6 +124,7 @@
 ---
 
 ## 7. `roadmap.md` — the timeline
+
 - **Structure:** Now (MVP) → Next → Later → Future, each with a theme + gate/goal.
 - **Questions to answer:** What ships in v1? What's the gate to move on? What's v1.x and v2? What's "maybe"?
 - **Prompt for Claude:**
@@ -127,23 +135,25 @@
 ---
 
 ## 8. Optional docs (Tier 3) — structure + key question
+
 Create only when that area gets real; otherwise keep as a section inside a core doc.
 
-| File | Structure (brief) | Key question to answer |
-|---|---|---|
-| `architecture.md` | system diagram · components · data flow · key tech decisions | How do the pieces fit and talk to each other? |
-| `data-model.md` | each object: fields, types, relationships, constraints | What are the things, and how do they relate? |
-| `api.md` | per endpoint: method, path, input, output, errors, auth | What can the client call, and what comes back? |
-| `content.md` | UI copy by screen · tone of voice · empty/error strings | What words appear on screen, in what voice? |
-| `brand.md` | logo, color, type, spacing, iconography, do/don'ts | What's the visual identity? |
-| `metrics.md` | events to log · funnels · success KPIs · dashboards | What do we measure and why? |
-| `security.md` | authn/authz · data handling · secrets · threat notes | How is user data kept safe? |
-| `testing.md` | what to test · unit/integration/e2e · coverage bar | How do we know it works? |
-| `personas.md` | 1–3 personas: goals, frustrations, context | Who are we really designing for? |
-| `competitors.md` | rivals · strengths/weaknesses · our wedge | Why us, not them? |
-| `open-questions.md` | running list of unknowns, assumptions, risks | What don't we know yet? |
-| `prompts.md` | reusable, named prompts for Codex/Claude | What prompts do we run repeatedly? |
+| File                | Structure (brief)                                            | Key question to answer                         |
+| ------------------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| `architecture.md`   | system diagram · components · data flow · key tech decisions | How do the pieces fit and talk to each other?  |
+| `data-model.md`     | each object: fields, types, relationships, constraints       | What are the things, and how do they relate?   |
+| `api.md`            | per endpoint: method, path, input, output, errors, auth      | What can the client call, and what comes back? |
+| `content.md`        | UI copy by screen · tone of voice · empty/error strings      | What words appear on screen, in what voice?    |
+| `brand.md`          | logo, color, type, spacing, iconography, do/don'ts           | What's the visual identity?                    |
+| `metrics.md`        | events to log · funnels · success KPIs · dashboards          | What do we measure and why?                    |
+| `security.md`       | authn/authz · data handling · secrets · threat notes         | How is user data kept safe?                    |
+| `testing.md`        | what to test · unit/integration/e2e · coverage bar           | How do we know it works?                       |
+| `personas.md`       | 1–3 personas: goals, frustrations, context                   | Who are we really designing for?               |
+| `competitors.md`    | rivals · strengths/weaknesses · our wedge                    | Why us, not them?                              |
+| `open-questions.md` | running list of unknowns, assumptions, risks                 | What don't we know yet?                        |
+| `prompts.md`        | reusable, named prompts for Codex/Claude                     | What prompts do we run repeatedly?             |
 
 **Generic prompt for any optional doc:**
+
 > "Using `docs/mother.md` as the source of truth, write `docs/<name>.md` with these
 > sections: <structure from the table>. Keep it lean and use concrete examples."

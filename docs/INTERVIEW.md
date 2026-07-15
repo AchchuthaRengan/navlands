@@ -8,7 +8,7 @@ deep-dive section by section. Answer in plain language — bullet points are fin
 
 ## ⭐ Round 1 — Foundations (answer these first)
 
-1. **What is navlands, in one sentence?** "navlands is a ___ that helps ___ do ___."
+1. **What is navlands, in one sentence?** `navlands is a ... that helps ... do ...`
 2. **The problem.** What's annoying/broken/missing today that navlands fixes?
 3. **Primary user.** Who is it for, and on what device (phone? web?)?
 4. **Top 3–5 things a user can do** in the app.
@@ -56,5 +56,5 @@ That's enough to draft `goal.md` and the skeleton of the others. Then:
 
 ---
 
-*As you answer, I fill `mother.md`. When it's complete, Codex splits it into
-`goal.md`, `design.md`, `task.md`, and `agents.md`.*
+_As you answer, I fill `mother.md`. When it's complete, Codex splits it into
+`goal.md`, `design.md`, `task.md`, and `agents.md`._
