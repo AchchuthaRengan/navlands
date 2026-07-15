@@ -31,6 +31,7 @@ navlands/
     ├── mother.md             ✅ MASTER source of truth (the blueprint)
     ├── INTERVIEW.md          ✅ Q&A guide used to fill mother.md
     ├── PLAYBOOK.md           ✅ Per-doc structure + exact prompts for Claude
+    ├── HARNESS.md            ✅ All harness extensions + staged navlands loadout
     ├── goal.md               ⬜ Why we build it + what success means
     ├── design.md             ⬜ Screens, flows, look & feel, data model
     ├── task.md               ⬜ The build, in small ordered jobs
